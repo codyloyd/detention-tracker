@@ -4,7 +4,7 @@ import DateCard from './DateCard'
 const DateCards = ({detentions}) => {
   return (
     <div>
-      {Object.keys(detentions).map(d => {
+      {Object.keys(detentions).sort((a,b) => a > b).map(d => {
         return (
           <DateCard 
             key={d} 

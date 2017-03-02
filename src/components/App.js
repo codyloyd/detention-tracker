@@ -10,7 +10,7 @@ class App extends Component {
     }
   }
   componentDidMount(){
-    api.fetchDetentions({startAt: '2017-02', endAt:'2017-03'}).then(data => {
+    api.fetchDetentions({}).then(data => {
       const detentions = Object.values(data).reduce((obj, detention) => {
         if (!obj[detention.date]) obj[detention.date] = []
         obj[detention.date].push(detention)
@@ -20,13 +20,13 @@ class App extends Component {
     })
   }
   render() {
-    console.log(this.state)
     return (
       <div>
-        <Header />
+        <Header activePage='overview' title='Overview'/>
         <div className="App container">
           <DateCards 
-            detentions={this.state.detentions}/>
+            detentions={this.state.detentions}
+          />
         </div>
       </div>
     );

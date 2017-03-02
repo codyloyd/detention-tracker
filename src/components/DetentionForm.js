@@ -1,5 +1,6 @@
 import React from 'react'
 import * as api from '../api'
+import {browserHistory} from 'react-router'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
 
@@ -18,16 +19,19 @@ class DetentionForm extends React.Component {
   handleChange = (e) => {
       let field = 'date'
       let value = e
-      console.log(e)
     if (e.target) {
       field = e.target.name
       value = e.target.value
     }
     this.setState({[field]: value})
-    console.log(this.state)
   }
   handleFormSubmit = () => {
-    api.createDetention({...this.state, date: this.state.date.format('YYYY-MM-DD'), teacher: 'Loyd'})
+    const date = this.state.date.format('YYYY-MM-DD')
+    api.createDetention({
+      ...this.state, 
+      date,
+      teacher: 'Loyd'
+    }).then(() => browserHistory.push(`/details/${date}`))
   }
   render() {
     return (

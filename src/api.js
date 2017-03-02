@@ -11,7 +11,7 @@ export const createDetention = (
     id = cuid()
   }
   ) => {
-  firebase.database().ref(`detentions/${id}`).set({
+  return firebase.database().ref(`detentions/${id}`).set({
     id,
     student,
     assignment,

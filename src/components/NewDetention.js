@@ -5,7 +5,7 @@ import Header from './Header'
 const NewDetention = (props) => {
   return (
     <div>
-      <Header title="Assign New Detention"/>
+      <Header title="Assign New Detention" activePage='new'/>
       <div className="container section">
         <DetentionForm />
       </div>
