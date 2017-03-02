@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../api'
 import DateCards from './DateCards'
-
+import Header from './Header'
 class App extends Component {
   constructor(){
     super()
@@ -10,7 +10,7 @@ class App extends Component {
     }
   }
   componentDidMount(){
-    api.fetchDetentions({}).then(data => {
+    api.fetchDetentions({startAt: '2017-02', endAt:'2017-03'}).then(data => {
       const detentions = Object.values(data).reduce((obj, detention) => {
         if (!obj[detention.date]) obj[detention.date] = []
         obj[detention.date].push(detention)
@@ -20,11 +20,14 @@ class App extends Component {
     })
   }
   render() {
+    console.log(this.state)
     return (
-      <div className="App container">
-        <h1 className='title is-1'>DETENTION TRACKAA</h1>
-        <DateCards 
-          detentions={this.state.detentions}/>
+      <div>
+        <Header />
+        <div className="App container">
+          <DateCards 
+            detentions={this.state.detentions}/>
+        </div>
       </div>
     );
   }
