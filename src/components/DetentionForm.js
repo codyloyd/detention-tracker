@@ -78,7 +78,9 @@ class DetentionForm extends React.Component {
             onChange={this.handleChange} 
             className='input' />
           <p className="heading">Students serving on this date:</p>
-          <StudentList students={this.state.studentsServing}/>
+          <StudentList 
+            students={this.state.studentsServing} 
+            highlight={this.state.student}/>
         </div>
         <label className="label">Notes</label>
         <p className="control">

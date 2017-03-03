@@ -1,12 +1,19 @@
 import React from 'react'
 
-const StudentList = ({students}) => {
+const StudentList = ({students, highlight}) => {
   return (
     <div className="content">
       <ul>
         {students.map(student => {
           return (
-            <li>{student}</li>
+            <li
+              key={student} 
+              style={
+                student === highlight ? 
+                  {'color': 'red', 'fontWeight': 'bold'} : 
+                  {}
+                }
+            >{student}</li>
           )
         })}
       </ul>
