@@ -14,7 +14,7 @@ class DetentionForm extends React.Component {
       student: '',
       assignment: '',
       notes: '',
-      date: moment(),
+      date: moment().add(1, 'days'),
       studentsServing: []
     }
     this.fetchStudentsServing(this.state.date)
@@ -49,54 +49,69 @@ class DetentionForm extends React.Component {
   }
   render() {
     return (
-      <form onSubmit={(e) => {
-        e.preventDefault()
-        this.handleFormSubmit()
-      }}>
-        <label className="label">Student Name</label>
-        <p className="control">
-          <input
-            name="student" 
-            onChange={this.handleChange}
-            type="text" 
-            className="input" 
-            placeholder="first and last name please"/>
-        </p>
-        <label className="label">Missing Assignment</label>
-        <p className="control">
-          <input 
-            name="assignment" 
-            onChange={this.handleChange}
-            type="text" 
-            className="input"
-            placeholder="assignment"/>
-        </p>
-        <label className="label">Date</label>
-        <div className="control">
-          <DatePicker 
-            selected={this.state.date} 
-            onChange={this.handleChange} 
-            className='input' />
-          <p className="heading">Students serving on this date:</p>
+      <div className="columns">
+        <div className="column">
+          <form onSubmit={(e) => {
+            e.preventDefault()
+            this.handleFormSubmit()
+          }}>
+            <label className="label">Date of Detention</label>
+            <div className="control">
+              <DatePicker 
+                selected={this.state.date} 
+                onChange={this.handleChange} 
+                className='input' />
+            </div>
+            <div className="is-hidden-tablet">
+              <p className="heading">Students serving on this date:</p>
+              <StudentList 
+                students={this.state.studentsServing} 
+                highlight={this.state.student}
+                centered={false}
+                />
+            </div>
+            <label className="label">Student Name</label>
+            <p className="control">
+              <input
+                name="student" 
+                onChange={this.handleChange}
+                type="text" 
+                className="input" 
+                placeholder="first and last name please"/>
+            </p>
+            <label className="label">Missing Assignment</label>
+            <p className="control">
+              <input 
+                name="assignment" 
+                onChange={this.handleChange}
+                type="text" 
+                className="input"
+                placeholder="assignment"/>
+            </p>
+            <label className="label">Notes</label>
+            <p className="control">
+              <textarea 
+                type="textarea" 
+                name="notes" 
+                onChange={this.handleChange}
+                className="textarea"
+                placeholder="does student need computer access?"/>
+            </p>
+            <p className="control">
+              <input type="submit" 
+                className="button is-primary"
+                value="assign detention"/>
+            </p>
+          </form>
+        </div>
+        <div className="column is-narrow is-hidden-mobile">
+          <p className="heading has-text-centered">Students serving on this date:</p>
           <StudentList 
             students={this.state.studentsServing} 
+            centered={true}
             highlight={this.state.student}/>
         </div>
-        <label className="label">Notes</label>
-        <p className="control">
-          <textarea 
-            type="textarea" 
-            name="notes" 
-            onChange={this.handleChange}
-            className="textarea"
-            placeholder="does student need computer access?"/>
-        </p>
-        <p className="control">
-          <input type="submit" 
-            className="button is-primary"
-            value="assign detention"/>
-        </p>
-      </form>
+      </div>
     )
   }
 }

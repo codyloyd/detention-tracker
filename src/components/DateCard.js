@@ -13,9 +13,12 @@ const DateCard = ({detentions, date}) => {
               Detentions for {date}
             </title>
           </header>
-          <div className="card-content">
+          <div className="card-content has-text-centered">
             <p className="subtitle">Students:</p>
-            <StudentList students={detentions.map(d => d.student)} />
+            <StudentList 
+              students={detentions.map(d => d.student)}
+              centered={true} 
+              />
           </div>
           <footer className="card-footer">
             <Link to={`/details/${date}`} className='card-footer-item'>Go To Details</Link>

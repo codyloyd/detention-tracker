@@ -1,8 +1,8 @@
 import React from 'react'
 
-const StudentList = ({students, highlight}) => {
+const StudentList = ({students, highlight, centered}) => {
   return (
-    <div className="content">
+    <div className={centered ? 'has-text-centered' : '' }>
       <ul>
         {students.map(student => {
           return (
