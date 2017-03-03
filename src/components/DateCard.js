@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import StudentList from './StudentList'
 
 const DateCard = ({detentions, date}) => {
   return (
@@ -12,13 +13,9 @@ const DateCard = ({detentions, date}) => {
               Detentions for {date}
             </title>
           </header>
-          <div className="card-content has-text-centered">
+          <div className="card-content">
             <p className="subtitle">Students:</p>
-            <ul>
-              {detentions.map(d => {
-                return <li key={d.id}>{d.student} - {d.teacher}</li>
-              })}
-            </ul>
+            <StudentList students={detentions.map(d => d.student)} />
           </div>
           <footer className="card-footer">
             <Link to={`/details/${date}`} className='card-footer-item'>Go To Details</Link>

@@ -3,6 +3,7 @@ import * as api from '../api'
 import {browserHistory} from 'react-router'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
+import StudentList from './StudentList'
 
 import '../../node_modules/react-datepicker/dist/react-datepicker.css'
 
@@ -13,16 +14,29 @@ class DetentionForm extends React.Component {
       student: '',
       assignment: '',
       notes: '',
-      date: moment()
+      date: moment(),
+      studentsServing: []
     }
+    this.fetchStudentsServing(this.state.date)
+  }
+  fetchStudentsServing = (date) => {
+    const formattedDate = date.format('YYYY-MM-DD')
+    api.fetchDetentions({
+      startAt: formattedDate, 
+      endAt: formattedDate
+    }).then(data => {
+      const studentsServing = Object.values(data).map(d => d.student)
+      this.setState({studentsServing})
+    })
   }
   handleChange = (e) => {
-      let field = 'date'
-      let value = e
+    let field = 'date'
+    let value = e
     if (e.target) {
       field = e.target.name
       value = e.target.value
     }
+    if (field === 'date') this.fetchStudentsServing(value)
     this.setState({[field]: value})
   }
   handleFormSubmit = () => {
@@ -63,6 +77,8 @@ class DetentionForm extends React.Component {
             selected={this.state.date} 
             onChange={this.handleChange} 
             className='input' />
+          <p className="heading">Students serving on this date:</p>
+          <StudentList students={this.state.studentsServing}/>
         </div>
         <label className="label">Notes</label>
         <p className="control">
