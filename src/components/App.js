@@ -5,6 +5,7 @@ import Header from './Header'
 import Footer from './Footer'
 import firebase from 'firebase'
 import SignIn from './SignIn'
+import moment from 'moment'
 
 class App extends Component {
   constructor(){
@@ -16,7 +17,9 @@ class App extends Component {
     this.unmount = null
   }
   componentDidMount(){
-    api.fetchDetentions({}).then(data => {
+    // const today = moment().format('YYYY-MM-DD')
+    const today = '2017'
+    api.fetchDetentions({startAt:today}).then(data => {
       const detentions = Object.values(data).reduce((obj, detention) => {
         if (!obj[detention.date]) obj[detention.date] = []
         obj[detention.date].push(detention)
