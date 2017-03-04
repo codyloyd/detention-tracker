@@ -5,7 +5,7 @@ import StudentList from './StudentList'
 const DateCard = ({detentions, date}) => {
   return (
     <div className="section">
-      <div className="columns">
+      <div className="columns">NewDetention
         <div className="column is-10 is-offset-1">
           <div className="card">
           <header className="card-header">

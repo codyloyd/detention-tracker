@@ -20,7 +20,13 @@ const Header = ({title, activePage}) => (
             <li className={activePage === 'new' ? 'is-active' : ''}>
               <Link to="/new">
                 Assign New Detention
-              </Link></li>
+              </Link>
+            </li>
+            <li className={activePage === 'signIn' ? 'is-active' : ''}>
+              <Link to="/signIn">
+                Sign In
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>
