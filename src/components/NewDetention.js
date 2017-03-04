@@ -34,7 +34,7 @@ class NewDetention extends React.Component {
             activePage='new'
           />
           <div className="container section">
-            <DetentionForm />
+            <DetentionForm currentUser={this.state.currentUser}/>
           </div>
         </div>
       )

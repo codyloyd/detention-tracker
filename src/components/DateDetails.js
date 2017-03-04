@@ -1,15 +1,29 @@
 import React from 'react'
 import DetentionTable from './DetentionTable'
 import * as api from '../api'
+import firebase from 'firebase'
 import Header from './Header'
 
 class DetentionDetails extends React.Component {
   constructor() {
     super()
-    this.state = {detentions: {}}
+    this.state = {
+      detentions: {},
+      currentUser: null
+    }
   }
   componentDidMount() {
     this.fetchDetentions()
+    this.unmount = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({currentUser: user})
+      } else {
+        this.setState({currentUser: null})
+      }
+    })
+  }
+  componentWillUnmount() {
+    this.unmount()
   }
   deleteDetention = (id) => {
     api.deleteDetention(id).then(
@@ -30,7 +44,10 @@ class DetentionDetails extends React.Component {
   render(){
     return (
       <div>
-        <Header title={"Details for " + this.props.params.date }/>
+        <Header 
+          title={"Details for " + this.props.params.date }
+          currentUser={this.state.currentUser}
+        />
         <div className="container">
           <DetentionTable 
             deleteDetention={this.deleteDetention}

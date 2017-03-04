@@ -15,9 +15,18 @@ class DetentionForm extends React.Component {
       assignment: '',
       notes: '',
       date: moment().add(1, 'days'),
+      teacher: '',
       studentsServing: []
     }
+  }
+  componentDidMount() {
     this.fetchStudentsServing(this.state.date)
+    this.fetchUserName(this.props.currentUser.uid)
+  }
+  fetchUserName = (uid) => {
+    api.fetchUsername(uid).then(name => {
+      this.setState({teacher: name})
+    })
   }
   fetchStudentsServing = (date) => {
     const formattedDate = date.format('YYYY-MM-DD')
@@ -44,7 +53,6 @@ class DetentionForm extends React.Component {
     api.createDetention({
       ...this.state, 
       date,
-      teacher: 'Loyd'
     }).then(() => browserHistory.push(`/details/${date}`))
   }
   render() {

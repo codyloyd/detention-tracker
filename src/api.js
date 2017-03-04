@@ -49,3 +49,8 @@ export const setAttendance = (id) => {
     detention.set({...data.val(), attendance: !data.val().attendance})
   })
 }
+
+export const fetchUsername = (uid) => {
+  return firebase.database().ref('users/' + uid).once('value')
+    .then(data => data.val().name)
+}
