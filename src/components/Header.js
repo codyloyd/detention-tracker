@@ -1,7 +1,7 @@
 import React from 'react'
-import {Link} from 'react-router'
+import Nav from './Nav'
 
-const Header = ({title, activePage}) => (
+const Header = ({title, activePage, currentUser}) => (
   <section className="hero is-primary">
     <div className="hero-body">
       <div className="container has-text-centered">
@@ -10,26 +10,7 @@ const Header = ({title, activePage}) => (
       </div>
     </div>
     <div className="hero-foot">
-      <nav className="tabs is-centered is-boxed">
-        <div className="container">
-          <ul>
-            <li className={activePage === 'overview' ? 'is-active' : ''}>
-              <Link to="/">
-                Overview
-              </Link></li>
-            <li className={activePage === 'new' ? 'is-active' : ''}>
-              <Link to="/new">
-                Assign New Detention
-              </Link>
-            </li>
-            <li className={activePage === 'signIn' ? 'is-active' : ''}>
-              <Link to="/signIn">
-                Sign In
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <Nav activePage={activePage} currentUser={currentUser}/>
     </div>
   </section>
 )

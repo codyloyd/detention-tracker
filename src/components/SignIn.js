@@ -1,43 +1,45 @@
 import React from 'react'
-import Header from './Header'
 import * as auth from '../auth'
 
 const SignIn = (props) => {
-  const user = auth.currentUser()
-  if (user) {
-    console.log(user.uid)
-  }
   let email, password
   return (
     <div>
-      <Header title="Sign In" activePage='signIn'/>
-      <div className="container section">
       <div className="column is-5">
-        <input 
-          type="email" 
-          className="input" 
-          name="email"
-          ref={(input) => email = input}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          auth.signIn({email: email.value, password: password.value})
+        }}
+      >
+        <label className="label">email:</label>
+        <div className="control">
+          <input 
+            type="email" 
+            className="input" 
+            name="email"
+            placeholder="your school email address"
+            ref={(input) => email = input}
+            />
+        </div>
+        <label className="label">password:</label>
+        <div className="control">
+          <input 
+            type="password" 
+            className="input" 
+            name="password"
+            placeholder="password"
+            ref={(input) => password = input}
+            />
+        </div>
+        <div className="control">
+          <input 
+            type="submit"
+            className='button'
+            value='Sign In'
           />
-        <input 
-          type="password" 
-          className="input" 
-          name="password"
-          ref={(input) => password = input}
-          />
-        <button 
-          className='button'
-          onClick={() => {
-            auth.signIn({email: email.value, password: password.value})
-          }}
-        >SIGN IN</button>
-        <button 
-          className='button'
-          onClick={() => {
-            auth.signOut()
-          }}
-        >SIGN OUT</button>
-      </div>
+        </div>
+      </form>
       </div>
     </div>
   )

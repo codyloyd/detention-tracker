@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import * as api from '../api'
 import DateCards from './DateCards'
 import Header from './Header'
+import Footer from './Footer'
+import firebase from 'firebase'
+import SignIn from './SignIn'
+
 class App extends Component {
   constructor(){
     super()
     this.state = {
-      detentions: []
+      detentions: [],
+      currentUser: null
     }
+    this.unmount = null
   }
   componentDidMount(){
     api.fetchDetentions({}).then(data => {
@@ -18,24 +24,41 @@ class App extends Component {
       }, {})
       this.setState({detentions})
     })
+    this.unmount = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({currentUser: user})
+      } else {
+        this.setState({currentUser: null})
+      }
+    })
+  }
+  componentWillUnmount() {
+    this.unmount()
   }
   render() {
+    if (this.state.currentUser) {
+      return (
+        <div>
+          <Header
+            activePage='overview'
+            title='Overview'
+            currentUser={this.state.currentUser}
+          />
+          <div className="App container">
+            <DateCards detentions={this.state.detentions}/>
+          </div>
+          <Footer />
+        </div>
+      );
+    }
     return (
       <div>
-        <Header activePage='overview' title='Overview'/>
-        <div className="App container">
-          <DateCards 
-            detentions={this.state.detentions}
-          />
-        </div>
-        <footer className="footer">
-          <div className="container">
-            <div className="content has-text-centered">
-              <strong>Detention Tracker</strong> by <a href="http://codyloyd.com">Cody Loyd</a>. The source code is licensed 
-        <a href="http://opensource.org/licenses/mit-license.php"> MIT</a> and can be found <a href="https://github.com/codyloyd/detention-tracker">HERE</a>
-            </div>
+        <Header activePage='overview' title=''/>
+          <div className="section">
+            <p className="title">Must Sign in to Continue</p>
+            <SignIn />
           </div>
-        </footer>
+        <Footer />
       </div>
     );
   }

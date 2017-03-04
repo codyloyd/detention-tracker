@@ -11,9 +11,7 @@ export const signIn = ({email, password}) => {
 export const signOut = () => {
   firebase.auth().signOut().then(function() {
     console.log('signedout')
-    // Sign-out successful.
   }, function(error) {
-    // An error happened.
   })
 }
 
