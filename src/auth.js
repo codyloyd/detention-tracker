@@ -9,10 +9,12 @@ export const signIn = ({email, password}) => {
 }
 
 export const signOut = () => {
-  firebase.auth().signOut().then(function() {
-    console.log('signedout')
-  }, function(error) {
-  })
+  firebase.auth().signOut().then(
+    function () {
+      console.log('signedout')
+    },
+    function (error) {}
+  )
 }
 
 export const currentUser = () => firebase.auth().currentUser

@@ -5,14 +5,14 @@ import firebase from 'firebase'
 import SignIn from './SignIn'
 
 class NewDetention extends React.Component {
-  constructor(){
+  constructor () {
     super()
     this.unmount = null
-    this.state={
+    this.state = {
       currentUser: null
     }
   }
-  componentDidMount(){
+  componentDidMount () {
     this.unmount = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({currentUser: user})
@@ -21,7 +21,7 @@ class NewDetention extends React.Component {
       }
     })
   }
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.unmount()
   }
   render () {
@@ -31,20 +31,20 @@ class NewDetention extends React.Component {
           <Header
             title="Assign New Detention"
             currentUser={this.state.currentUser}
-            activePage='new'
+            activePage="new"
           />
           <div className="container section">
-            <DetentionForm currentUser={this.state.currentUser}/>
+            <DetentionForm currentUser={this.state.currentUser} />
           </div>
         </div>
       )
     }
     return (
       <div>
-        <Header activePage='new'/>
+        <Header activePage="new" />
         <div className="section">
-        <p className="title">Must Sign In to Continue</p>
-        <SignIn />
+          <p className="title">Must Sign In to Continue</p>
+          <SignIn />
         </div>
       </div>
     )

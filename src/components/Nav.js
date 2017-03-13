@@ -11,7 +11,8 @@ export default ({activePage, currentUser}) => {
             <li className={activePage === 'overview' ? 'is-active' : ''}>
               <Link to="/">
                 Overview
-              </Link></li>
+              </Link>
+            </li>
             <li className={activePage === 'new' ? 'is-active' : ''}>
               <Link to="/new">
                 Assign New Detention
@@ -27,5 +28,5 @@ export default ({activePage, currentUser}) => {
       </nav>
     )
   }
-  return <div></div>
+  return <div />
 }

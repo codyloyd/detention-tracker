@@ -10,7 +10,7 @@ export const createDetention = (
     notes = '',
     id = cuid()
   }
-  ) => {
+) => {
   return firebase.database().ref(`detentions/${id}`).set({
     id,
     student,
@@ -22,12 +22,14 @@ export const createDetention = (
   })
 }
 
-export const deleteDetention = (id) => {
+export const deleteDetention = id => {
   return firebase.database().ref(`detentions/${id}`).set({})
 }
 
 export const fetchDetentions = ({startAt = '1', endAt = `3`}) => {
-  return firebase.database().ref(`detentions`)
+  return firebase
+    .database()
+    .ref(`detentions`)
     .orderByChild('date')
     .startAt(startAt)
     .endAt(endAt)
@@ -37,20 +39,25 @@ export const fetchDetentions = ({startAt = '1', endAt = `3`}) => {
     })
 }
 
-export const fetchDetention = (id) => {
-  return firebase.database().ref(`detentions/${id}`)
+export const fetchDetention = id => {
+  return firebase
+    .database()
+    .ref(`detentions/${id}`)
     .once('value')
     .then(data => data.val() || {})
 }
 
-export const setAttendance = (id) => {
+export const setAttendance = id => {
   const detention = firebase.database().ref(`detentions/${id}`)
-  return detention.once('value').then(data =>{
+  return detention.once('value').then(data => {
     detention.set({...data.val(), attendance: !data.val().attendance})
   })
 }
 
-export const fetchUsername = (uid) => {
-  return firebase.database().ref('users/' + uid).once('value')
+export const fetchUsername = uid => {
+  return firebase
+    .database()
+    .ref('users/' + uid)
+    .once('value')
     .then(data => data.val().name)
 }

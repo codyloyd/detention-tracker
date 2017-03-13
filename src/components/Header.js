@@ -7,11 +7,13 @@ const Header = ({title, activePage, currentUser}) => (
       <div className="container has-text-centered">
         <p className="title is-1">Detention Tracker</p>
         <p className="subtitle">{title}</p>
-        <p className="subtitle">{currentUser ? '' : 'test@test.com - password: "testing"'}</p>
+        <p className="subtitle">
+          {currentUser ? '' : 'test@test.com - password: "testing"'}
+        </p>
       </div>
     </div>
     <div className="hero-foot">
-      <Nav activePage={activePage} currentUser={currentUser}/>
+      <Nav activePage={activePage} currentUser={currentUser} />
     </div>
   </section>
 )

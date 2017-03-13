@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react'
 import * as api from '../api'
 import DateCards from './DateCards'
 import Header from './Header'
@@ -8,7 +8,7 @@ import SignIn from './SignIn'
 import moment from 'moment'
 
 class App extends Component {
-  constructor(){
+  constructor () {
     super()
     this.state = {
       detentions: [],
@@ -16,15 +16,18 @@ class App extends Component {
     }
     this.unmount = null
   }
-  componentDidMount(){
-    // const today = moment().format('YYYY-MM-DD')
+  componentDidMount () {
+    // const today = moment().format('YYYY-MM-DD');
     const today = '2017'
-    api.fetchDetentions({startAt:today}).then(data => {
-      const detentions = Object.values(data).reduce((obj, detention) => {
-        if (!obj[detention.date]) obj[detention.date] = []
-        obj[detention.date].push(detention)
-        return obj
-      }, {})
+    api.fetchDetentions({startAt: today}).then(data => {
+      const detentions = Object.values(data).reduce(
+        (obj, detention) => {
+          if (!obj[detention.date]) obj[detention.date] = []
+          obj[detention.date].push(detention)
+          return obj
+        },
+        {}
+      )
       this.setState({detentions})
     })
     this.unmount = firebase.auth().onAuthStateChanged(user => {
@@ -35,36 +38,36 @@ class App extends Component {
       }
     })
   }
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.unmount()
   }
-  render() {
+  render () {
     if (this.state.currentUser) {
       return (
         <div>
           <Header
-            activePage='overview'
-            title='Overview'
+            activePage="overview"
+            title="Overview"
             currentUser={this.state.currentUser}
           />
           <div className="App container">
-            <DateCards detentions={this.state.detentions}/>
+            <DateCards detentions={this.state.detentions} />
           </div>
           <Footer />
         </div>
-      );
+      )
     }
     return (
       <div>
-        <Header activePage='overview' title=''/>
-          <div className="section">
-            <p className="title">Must Sign in to Continue</p>
-            <SignIn />
-          </div>
+        <Header activePage="overview" title="" />
+        <div className="section">
+          <p className="title">Must Sign in to Continue</p>
+          <SignIn />
+        </div>
         <Footer />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

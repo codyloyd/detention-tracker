@@ -19,12 +19,12 @@ const DetentionTable = ({detentions, deleteDetention, setAttendance}) => {
             return (
               <tr key={d.id}>
                 <th>
-                  <p onClick={() => setAttendance(d.id)}
-                      className={
-                        'button ' + (d.attendance ? 
-                          'is-primary' : 
-                          'is-danger')
-                        }>
+                  <p
+                    onClick={() => setAttendance(d.id)}
+                    className={
+                      'button ' + (d.attendance ? 'is-primary' : 'is-danger')
+                    }
+                  >
                     {d.attendance ? 'HERE' : 'GONE'}
                   </p>
                 </th>
@@ -33,11 +33,13 @@ const DetentionTable = ({detentions, deleteDetention, setAttendance}) => {
                 <td>{d.assignment}</td>
                 <td>{d.notes}</td>
                 <td>
-                  <p onClick={() => deleteDetention(d.id)}
-                      className="button is-danger">
-                    <i className="fa fa-trash" aria-hidden="true"></i>
+                  <p
+                    onClick={() => deleteDetention(d.id)}
+                    className="button is-danger"
+                  >
+                    <i className="fa fa-trash" aria-hidden="true" />
                   </p>
-                  </td>
+                </td>
               </tr>
             )
           })}
