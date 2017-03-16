@@ -8,10 +8,10 @@ const Root = ({currentUser}) => {
   return (
     <Router history={browserHistory}>
       <Route path="/" component={App} />
-      <Route path="/details/(:date)" component={DateDetails} />
+      <Route path="/details/:date" component={DateDetails} />
       <Route path="/new" component={NewDetention} />
     </Router>
   )
-}
+};
 
 export default Root

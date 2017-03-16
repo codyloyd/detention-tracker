@@ -3,13 +3,15 @@ import DetentionTable from './DetentionTable';
 import * as api from '../api';
 import firebase from 'firebase';
 import Header from './Header';
+import Loading from './Loading';
 
 class DetentionDetails extends React.Component {
   constructor() {
     super();
     this.state = {
       detentions: {},
-      currentUser: null
+      currentUser: null,
+      loading: true
     };
   }
 
@@ -36,7 +38,7 @@ class DetentionDetails extends React.Component {
     const date = this.props.params.date;
     api
       .fetchDetentions({startAt: date, endAt: date})
-      .then(data => this.setState({detentions: data}));
+      .then(data => this.setState({detentions: data, loading: false}));
   };
   render() {
     return (
@@ -46,11 +48,13 @@ class DetentionDetails extends React.Component {
           currentUser={this.state.currentUser}
         />
         <div className="container">
-          <DetentionTable
-            deleteDetention={this.deleteDetention}
-            setAttendance={this.setAttendance}
-            detentions={Object.values(this.state.detentions)}
-          />
+          {this.state.loading
+            ? <Loading />
+            : <DetentionTable
+                deleteDetention={this.deleteDetention}
+                setAttendance={this.setAttendance}
+                detentions={Object.values(this.state.detentions)}
+              />}
         </div>
       </div>
     );

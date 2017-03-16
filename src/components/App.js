@@ -5,14 +5,16 @@ import Header from './Header'
 import Footer from './Footer'
 import firebase from 'firebase'
 import SignIn from './SignIn'
-import moment from 'moment'
+import Loading from './Loading'
+// import moment from 'moment'
 
 class App extends Component {
   constructor () {
     super()
     this.state = {
       detentions: [],
-      currentUser: null
+      currentUser: null,
+      loading: true
     }
     this.unmount = null
   }
@@ -28,7 +30,7 @@ class App extends Component {
         },
         {}
       )
-      this.setState({detentions})
+      this.setState({detentions, loading: false})
     })
     this.unmount = firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -51,7 +53,9 @@ class App extends Component {
             currentUser={this.state.currentUser}
           />
           <div className="App container">
-            <DateCards detentions={this.state.detentions} />
+            {this.state.loading
+              ? <Loading />
+              : <DateCards detentions={this.state.detentions} />}
           </div>
           <Footer />
         </div>

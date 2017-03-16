@@ -22,7 +22,7 @@ const DetentionTable = ({detentions, deleteDetention, setAttendance}) => {
                   <p
                     onClick={() => setAttendance(d.id)}
                     className={
-                      'button ' + (d.attendance ? 'is-primary' : 'is-danger')
+                      `button ${d.attendance ? 'is-primary' : 'is-danger'}`
                     }
                   >
                     {d.attendance ? 'HERE' : 'GONE'}
@@ -47,6 +47,6 @@ const DetentionTable = ({detentions, deleteDetention, setAttendance}) => {
       </table>
     </div>
   )
-}
+};
 
 export default DetentionTable
