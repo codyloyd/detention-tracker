@@ -4,6 +4,10 @@ import * as api from '../api';
 import firebase from 'firebase';
 import Header from './Header';
 import Loading from './Loading';
+import ConfirmationDialog from './ConfirmationDialog';
+import {createConfirmation} from 'react-confirm';
+
+const confirm = createConfirmation(ConfirmationDialog);
 
 class DetentionDetails extends React.Component {
   constructor() {
@@ -29,7 +33,12 @@ class DetentionDetails extends React.Component {
     this.unmount();
   }
   deleteDetention = id => {
-    api.deleteDetention(id).then(this.fetchDetentions());
+    confirm().then(
+      result => {
+        api.deleteDetention(id).then(this.fetchDetentions());
+      },
+      result => console.log
+    );
   };
   setAttendance = id => {
     api.setAttendance(id).then(this.fetchDetentions());
@@ -47,6 +56,7 @@ class DetentionDetails extends React.Component {
           title={'Details for ' + this.props.params.date}
           currentUser={this.state.currentUser}
         />
+        <ConfirmationDialog show={false} />
         <div className="container">
           {this.state.loading
             ? <Loading />
