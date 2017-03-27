@@ -6,7 +6,7 @@ import Footer from './Footer'
 import firebase from 'firebase'
 import SignIn from './SignIn'
 import Loading from './Loading'
-// import moment from 'moment'
+import moment from 'moment'
 
 class App extends Component {
   constructor () {
@@ -19,8 +19,7 @@ class App extends Component {
     this.unmount = null
   }
   componentDidMount () {
-    // const today = moment().format('YYYY-MM-DD');
-    const today = '2017'
+    const today = moment().format('YYYY-MM-DD')
     api.fetchDetentions({startAt: today}).then(data => {
       const detentions = Object.values(data).reduce(
         (obj, detention) => {
