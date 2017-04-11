@@ -6,12 +6,21 @@ body
   font-family: sans-serif;
 
 @keyframes pulse
-  0%, 100%
-    transform: scale(1);
-    opacity: .3;
-  50%
-    transform: scale(1.01);
+  0%
+    transform: rotate(3deg) scale(1);
     opacity: 1;
+  25%
+    opacity: .3;
+    transform: scale(.8)
+  50%
+    transform: rotate(-3deg) scale(1);
+    opacity: 1;
+  75%
+    opacity: .3;
+    transform: scale(.8)
+  100%
+    opacity: 1;
+    transform: rotate(3deg) scale(1);
 
 @keyframes fade-in
   0%
